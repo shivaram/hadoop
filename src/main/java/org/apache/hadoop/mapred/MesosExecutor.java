@@ -37,10 +37,9 @@ public class MesosExecutor implements Executor {
 
     // Output the configuration as XML for easy debugging.
     try {
-      StringWriter writer = new StringWriter();
-      conf.writeXml(writer);
-      writer.flush();
-      String xml = writer.getBuffer().toString();
+      ByteArrayOutputStream baos = new ByteArrayOutputStream();
+      conf.writeXml(baos);
+      String xml = baos.toString();
       LOG.info("XML Configuration received:\n" +
                org.apache.mesos.hadoop.Utils.formatXml(xml));
     } catch (Exception e) {

@@ -730,8 +730,10 @@ public class MesosScheduler extends TaskScheduler implements Scheduler {
           // override properties as appropriate for the TaskTracker.
           Configuration overrides = new Configuration(conf);
 
-          overrides.set("mapred.job.tracker",
-              jobTrackerAddress.getHostName() + ':' + jobTrackerAddress.getPort());
+          // NOTE(shivaram): On EC2 this leads to an error as the job 
+          // tracker's addr is truncated
+          // overrides.set("mapred.job.tracker",
+          //     jobTrackerAddress.getHostName() + ':' + jobTrackerAddress.getPort());
 
           overrides.set("mapred.task.tracker.http.address",
               httpAddress.getHostName() + ':' + httpAddress.getPort());
